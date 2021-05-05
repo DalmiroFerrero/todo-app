@@ -4,27 +4,25 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./Column";
 import AddTask from "./AddTask";
 
-const Container = styled.div`
-  display: flex;
-`;
-
 const ContainerApp = styled.div`
   position: absolute;
   top: 25%;
   left: 25%;
 `;
 
+const Container = styled.div`
+  display: flex;
+  font-size: 20px;
+`;
+
 function App() {
   const [state, setState] = useState({
-    tasks: {
-      "task-1": { id: "task-1", content: "Take out the garbage" },
-      "task-2": { id: "task-2", content: "Asheee" },
-    },
+    tasks: {},
     columns: {
       "column-1": {
         id: "column-1",
         title: "To do",
-        taskIds: ["task-1"],
+        taskIds: [],
       },
       "column-2": {
         id: "column-2",
@@ -46,7 +44,7 @@ function App() {
 
   const validList = () => {
     const list = JSON.parse(window.localStorage.getItem("list")) || {};
-    console.log(list);
+
     if (Object.entries(list).length === 0) {
       window.localStorage.setItem("list", JSON.stringify(state));
     } else {
@@ -121,11 +119,98 @@ function App() {
       },
     };
     setState(newState);
+
+    window.localStorage.setItem("list", JSON.stringify(newState));
+  };
+
+  const AddTaskMethod = (task) => {
+    if (task === undefined) return;
+
+    const allTaks = Object.values(state.tasks);
+    var newState;
+    if (allTaks.length === 0) {
+      newState = {
+        ...state,
+        tasks: {
+          ...state.tasks,
+          "task-1": {
+            id: "task-1",
+            content: task,
+          },
+        },
+        columns: {
+          ...state.columns,
+          "column-1": {
+            ...state.columns["column-1"],
+            taskIds: [...state.columns["column-1"].taskIds, "task-1"],
+          },
+        },
+      };
+    } else {
+      const lastTask = allTaks[allTaks.length - 1].id;
+
+      if (lastTask.length <= 6) {
+        const nextTask =
+          Number(lastTask.toString().charAt(lastTask.length - 1)) + 1;
+
+        newState = {
+          ...state,
+          tasks: {
+            ...state.tasks,
+            [("task-" + nextTask).toString()]: {
+              id: ("task-" + nextTask).toString(),
+              content: task,
+            },
+          },
+          columns: {
+            ...state.columns,
+            "column-1": {
+              ...state.columns["column-1"],
+              taskIds: [
+                ...state.columns["column-1"].taskIds,
+                "task-" + nextTask.toString(),
+              ],
+            },
+          },
+        };
+      } else if (lastTask.length > 6) {
+        const nextTask =
+          Number(
+            lastTask.charAt(lastTask.length - 2) +
+              lastTask.charAt(lastTask.length - 1)
+          ) + 1;
+
+        newState = {
+          ...state,
+          tasks: {
+            ...state.tasks,
+            ["task-" + nextTask]: {
+              id: "task-" + nextTask,
+              content: task,
+            },
+          },
+          columns: {
+            ...state.columns,
+            "column-1": {
+              ...state.columns["column-1"],
+              taskIds: [
+                ...state.columns["column-1"].taskIds,
+                "task-" + nextTask.toString(),
+              ],
+            },
+          },
+        };
+      }
+    }
+
+    setState(newState);
+
+    window.localStorage.setItem("list", JSON.stringify(newState));
   };
 
   return (
     <ContainerApp>
-      <AddTask />
+      <AddTask AddTaskMethod={AddTaskMethod} />
       <DragDropContext onDragEnd={onDragEnd}>
         <Container>
           {state.columnOrder.map((columnId) => {

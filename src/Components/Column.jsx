@@ -13,7 +13,10 @@ const Container = styled.div`
   flex-direction: column;
 `;
 const Title = styled.h3`
-  padding: 8px;
+  padding: 10px;
+  text-align: center;
+  margin: 0;
+  border-bottom: 1px solid #000;
 `;
 const TaskList = styled.div`
   padding: 8px;
