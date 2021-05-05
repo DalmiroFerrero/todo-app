@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
   text-align: center;
@@ -13,29 +13,47 @@ const ContainerInputs = styled.div`
 `;
 
 const Title = styled.h1`
-  margin: 0 0 10px 0;
+  font-size: 45px;
+  color: #f4f4f4;
+  margin-bottom: 10px;
+
+  @media only screen and (max-width: 1440px) {
+    font-size: 40px;
+  }
 `;
 
 const Text = styled.input`
   width: 250px;
   height: 50px;
   border-radius: 10px;
-  font-size: 20px;
-  margin: auto 10px auto 0;
+  font-size: 25px;
+  margin-right: 10px;
   padding: 0 0 0 10px;
   outline: none;
-  font-family: "Indie Flower", cursive;
+  border: 2px solid #1a1a1a;
+  background-color: #f4f4f4;
+  font-family: 'Indie Flower', cursive;
+
+  @media only screen and (max-width: 1440px) {
+    font-size: 25px;
+  }
+  @media only screen and (max-width: 1366px) {
+    font-size: 20px;
+  }
 `;
 
 const Button = styled.button`
+  cursor: pointer;
   height: 50px;
   width: 100px;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 25px;
   margin: auto 0;
   outline: none;
-  padding: 10px;
-  font-family: "Indie Flower", cursive;
+  border: 2px solid #1a1a1a;
+  background-color: #f4f4f4;
+  padding: 8px;
+  font-family: 'Indie Flower', cursive;
 `;
 
 const AddTask = ({ AddTaskMethod }) => {
@@ -44,7 +62,7 @@ const AddTask = ({ AddTaskMethod }) => {
   const handleClick = () => {
     AddTaskMethod(task);
 
-    setTask("");
+    setTask('');
   };
 
   return (

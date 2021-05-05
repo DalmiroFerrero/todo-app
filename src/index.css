@@ -1,11 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
 
 body {
+  height: 100vh;
   margin: 0;
   font-family: "Indie Flower", cursive;
+  background: rgb(77, 84, 84);
+  background: linear-gradient(
+    155deg,
+    rgba(77, 84, 84, 1) 0%,
+    rgba(23, 22, 19, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    155deg,
+    rgba(77, 84, 84, 1) 0%,
+    rgba(23, 22, 19, 1) 100%
+  );
+  background: -o-linear-gradient(
+    155deg,
+    rgba(77, 84, 84, 1) 0%,
+    rgba(23, 22, 19, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    155deg,
+    rgba(77, 84, 84, 1) 0%,
+    rgba(23, 22, 19, 1) 100%
+  );
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+svg {
+  margin: auto 0;
 }
